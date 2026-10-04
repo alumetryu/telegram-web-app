@@ -1,0 +1,8 @@
+node_modules/
+.env
+*.log
+log.txt
+.DS_Store
+.mimocode/
+.wrangler/
+gonzogaming.js

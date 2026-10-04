@@ -1,0 +1,1184 @@
+/* ===== ДИЗАЙН-СИСТЕМА (на основе Gonzo Gaming) ===== */
+
+:root {
+  color-scheme: dark;
+  --bg: #07080b;
+  --panel: #111217;
+  --panel-2: #171821;
+  --panel-3: #1f202b;
+  --text: #f6f7fb;
+  --muted: #9ca1af;
+  --line: #ffffff1f;
+  --line-strong: #ffffff33;
+  --red: #ff1f3d;
+  --red-dark: #4d0712;
+  --green: #4df4a5;
+  --green-bg: #0d3d2e;
+  --amber: #ffbf4d;
+  --amber-bg: #443019;
+  --danger: #fb7185;
+  --radius: 16px;
+  --radius-sm: 12px;
+  --radius-lg: 22px;
+  --surface: #111217e6;
+  --nav-height: 76px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  min-height: 100%;
+  min-height: 100dvh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html { background: var(--bg); height: 100%; }
+
+body {
+  background:
+    linear-gradient(180deg, #5c07125c 0%, #07080bfa 260px),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+}
+
+/* ===== ЗАГРУЗКА ===== */
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 100dvh;
+  padding: 24px;
+  text-align: center;
+}
+
+.loading-screen h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--line);
+  border-top-color: var(--text);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner.small {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== ЛОГИН ===== */
+
+.login-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+  gap: 24px;
+}
+
+.login-screen h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.login-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-card .eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 4px;
+}
+
+.login-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-field span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.login-field input {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.login-field input:focus {
+  border-color: var(--red);
+}
+
+.login-error {
+  color: var(--danger);
+  font-size: 13px;
+  margin: 0;
+}
+
+.login-submit {
+  margin-top: 4px;
+}
+
+/* ===== ОБЩИЕ КНОПКИ ===== */
+
+.primary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  width: 100%;
+}
+
+.primary-action:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.primary-action:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+/* ===== ШАПКА ===== */
+
+.app-shell {
+  padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  padding-top: calc(16px + var(--safe-top));
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-lockup .eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 0;
+}
+
+.brand-lockup h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.icon-btn:hover { background: var(--panel-2); }
+
+/* ===== УВЕДОМЛЕНИЯ ===== */
+
+.notice {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin: 0 20px 12px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notice.error {
+  background: var(--red-dark);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ===== ТАБЫ ===== */
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 0 20px;
+  margin-bottom: 16px;
+  position: fixed;
+  bottom: var(--safe-bottom);
+  left: 0;
+  right: 0;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  height: var(--nav-height);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+  flex: 1;
+  max-width: 120px;
+}
+
+.tab.active {
+  color: var(--text);
+  background: var(--panel);
+}
+
+.tab:hover:not(.active) {
+  color: var(--text);
+}
+
+/* ===== СТАТИСТИКА ===== */
+
+.stats-strip {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px;
+  margin-bottom: 12px;
+}
+
+.metric {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  text-align: center;
+}
+
+.metric span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.metric strong {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.metric.good strong { color: var(--green); }
+.metric.warn strong { color: var(--amber); }
+
+/* ===== ТУЛБАР ===== */
+
+.toolbar {
+  padding: 0 20px;
+  margin-bottom: 12px;
+}
+
+.segmented {
+  display: inline-flex;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.segmented button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.segmented button.selected {
+  background: var(--red);
+  color: #fff;
+}
+
+/* ===== ЗОНЫ ===== */
+
+.zone-filter-row {
+  display: flex;
+  gap: 6px;
+  padding: 0 20px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.zone-filter-row::-webkit-scrollbar { display: none; }
+
+.zone-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.zone-chip.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.zone-chip strong {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* ===== СЕКЦИЯ ЗОНЫ ===== */
+
+.zone-section {
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.zone-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.zone-section-header p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.zone-section-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.zone-section-header strong {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ===== СЕТКА ПК ===== */
+
+.pc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.pc-tile {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+  text-align: left;
+  cursor: default;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pc-tile.free {
+  border-color: var(--green);
+  background: var(--green-bg);
+}
+
+.pc-tile.free.bookable {
+  cursor: pointer;
+}
+
+.pc-tile.free.bookable:hover {
+  border-color: var(--green);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(77, 244, 165, 0.15);
+}
+
+.pc-tile.selected {
+  border-color: var(--red);
+  background: var(--red-dark);
+}
+
+.pc-tile.occupied {
+  opacity: 0.6;
+}
+
+.pc-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex-shrink: 0;
+}
+
+.pc-tile.free .status-dot { background: var(--green); }
+.pc-tile.occupied .status-dot { background: var(--amber); }
+
+.pc-head strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pc-zone {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.pc-state {
+  font-size: 12px;
+}
+
+.pc-state small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+/* ===== INLINE БРОНИРОВАНИЕ ===== */
+
+.pc-inline-booking {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+}
+
+/* ===== ПАНЕЛЬ БРОНИРОВАНИЯ ===== */
+
+.booking-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.booking-panel.locked {
+  opacity: 0.7;
+}
+
+.booking-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.booking-refresh {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.booking-rules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.booking-rules span {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.booking-tier-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.booking-locked-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.booking-locked-body p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.booking-locked-body span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===== ВЫБОР ВРЕМЕНИ ===== */
+
+.booking-choice-grid {
+  margin-bottom: 12px;
+}
+
+.booking-choice-card {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+}
+
+.booking-choice-card.selected {
+  border-color: var(--red);
+}
+
+.booking-choice-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.booking-time-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.booking-time-options button {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+
+.booking-time-options button.selected {
+  border-color: var(--red);
+  background: var(--red-dark);
+}
+
+.booking-time-options button strong {
+  display: block;
+  font-size: 13px;
+}
+
+.booking-time-options button span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.booking-empty {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* ===== РАСЧЁТ ===== */
+
+.booking-action {
+  margin-top: 8px;
+}
+
+.booking-quote {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.booking-quote div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.booking-quote div:first-child span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.booking-quote div:first-child strong {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.booking-quote p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+/* ===== МОИ БРОНИ ===== */
+
+.booking-list {
+  margin-top: 16px;
+}
+
+.booking-section-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.booking-card {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.booking-card div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.booking-card strong {
+  font-size: 14px;
+}
+
+.booking-card span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.booking-card div:last-child {
+  text-align: right;
+}
+
+.booking-card small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ===== ПРОФИЛЬ ===== */
+
+.view-stack {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--panel-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-meta p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 2px;
+}
+
+.profile-meta h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 2px;
+}
+
+.profile-meta span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===== БАЛАНС ===== */
+
+.balance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.balance-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.balance-card svg {
+  color: var(--muted);
+}
+
+.balance-card span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.balance-card strong {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ===== ПАНЕЛИ ===== */
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.panel .panel-title {
+  margin-bottom: 8px;
+}
+
+.panel .muted {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ===== ЛОЯЛЬНОСТЬ ===== */
+
+.loyalty-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.loyalty-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.loyalty-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.loyalty-total span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.loyalty-total strong {
+  font-size: 16px;
+}
+
+.loyalty-tiers {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.loyalty-tier {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.loyalty-tier.reached {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.loyalty-tier.active {
+  background: var(--green-bg);
+  border-color: var(--green);
+}
+
+.loyalty-tier small {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* ===== ИСТОРИЯ БАЛАНСА ===== */
+
+.balance-history-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.balance-history-panel .primary-action {
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.inline-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 8px 0;
+}
+
+.empty-copy {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.panel-error {
+  color: var(--danger);
+  font-size: 13px;
+  margin: 0;
+}
+
+.balance-history-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.balance-history-item:last-child { border-bottom: none; }
+
+.balance-history-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--panel-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.balance-history-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.balance-history-main strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.balance-history-main span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.balance-history-amounts {
+  text-align: right;
+}
+
+.balance-history-amounts strong {
+  display: block;
+  font-size: 13px;
+}
+
+.balance-history-amounts .positive { color: var(--green); }
+.balance-history-amounts .negative { color: var(--danger); }
+
+.balance-history-amounts span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ===== УВЕДОМЛЕНИЯ ===== */
+
+.form-success {
+  color: var(--green);
+  font-size: 13px;
+  margin: 8px 0 0;
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 13px;
+  margin: 8px 0 0;
+}
+
+/* ===== ОПЛАТА ===== */
+
+.payment-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.payment-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.payment-head span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.quick-amounts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.quick-amounts button {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.quick-amounts button.selected {
+  border-color: var(--red);
+  background: var(--red-dark);
+}
+
+.amount-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.amount-field span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.amount-field input {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.amount-field input:focus {
+  border-color: var(--red);
+}
+
+.provider-grid {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.provider-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.provider-button.selected {
+  border-color: var(--red);
+  background: var(--red-dark);
+}
+
+.provider-button.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.payment-message {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+.payment-message.error {
+  color: var(--danger);
+}
+
+/* ===== АНИМАЦИЯ ===== */
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.loading { animation: pulse 1.5s ease-in-out infinite; }
+
+/* ===== АДАПТИВ ===== */
+
+@media (min-width: 600px) {
+  .pc-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
