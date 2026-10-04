@@ -1,100 +1,98 @@
-# Telegram Mini App для ПК-клуба
+# Telegram Mini App — PC Club Booking System
 
-Telegram Mini App для управления ПК-клубом: карта компьютеров, бронирование, профиль пользователя, баланс и программа лояльности.
+A Telegram Mini App for managing a PC gaming club: real-time PC map, booking system, user profiles, balance management, and a loyalty program. Built with vanilla HTML/CSS/JS frontend and a Node.js/Express backend.
 
-Проект состоит из фронтенда на чистом HTML/CSS/JS, бэкенда на **Express**, отдельного Telegram-бота на **Telegraf** и дополнительных сборок для деплоя через **Cloudflare Pages/Workers**.
+## Features
 
-## Что умеет приложение
+- **PC Map** — real-time grid of PCs by zone, filter by availability, click to book
+- **Booking** — select time slot, get a price quote, confirm reservation
+- **User Profile** — balance, loyalty tier, transaction history
+- **Payments** — Payme and Click payment integration
+- **Telegram Bot** — Telegraf bot with `/start` and `/book` commands that opens the Mini App
+- **Auth** — Telegram WebApp authentication + iCafeCloud login/password fallback
+- **Admin-ready** — iCafeCloud API integration for PC data, sessions, and user management
 
-- показывает карту ПК и помогает выбирать свободные машины;
-- позволяет бронировать ПК и запускать сессию;
-- отображает профиль, баланс, бонусы и историю операций;
-- поддерживает авторизацию через Telegram WebApp и через iCafe;
-- отправляет пользователям кнопку открытия Mini App из Telegram-бота.
+## Tech Stack
 
-## Стек
+| Layer | Technology |
+|-------|-----------|
+| Frontend | HTML, CSS, JavaScript (vanilla) |
+| Backend | Node.js, Express |
+| Bot | Telegraf (Telegram Bot API) |
+| Hosting | Cloudflare Pages + Cloudflare Workers |
+| External API | iCafeCloud (PC club management platform) |
+| Payments | Payme, Click |
 
-- HTML, CSS, JavaScript
-- Node.js, Express, Telegraf
-- Cloudflare Pages / Cloudflare Workers
-- iCafeCloud API
-
-## Структура
+## Project Structure
 
 ```
-telegram_web_app/
-├── index.html           # фронтенд Mini App
-├── style.css            # стили
-├── config.js            # настройки фронтенда
-├── api.js               # запросы к бэкенду
-├── app.js               # логика приложения
-├── server/              # бэкенд (middleware)
-│   ├── server.js
-│   ├── package.json
-│   └── .env.example
-├── bot/                 # Telegram-бот
-│   ├── index.js
+├── index.html, style.css     # Frontend (Telegram Mini App)
+├── config.js                 # Frontend configuration
+├── api.js                    # API client layer
+├── app.js                    # Application logic and UI rendering
+├── server/                   # Express backend (middleware)
+│   ├── server.js             # API server with auth, booking, payments
+│   ├── .env.example          # Environment variable template
 │   └── package.json
-├── cf-pages/            # фронтенд для Cloudflare Pages
-└── cf-worker/           # бэкенд для Cloudflare Workers
+├── bot/                      # Telegram bot (Telegraf)
+│   ├── index.js              # Bot with /start, /book, web_app_data handler
+│   └── package.json
+├── cf-pages/                 # Cloudflare Pages deployment variant
+└── cf-worker/                # Cloudflare Workers deployment variant
 ```
 
-## Быстрый старт
+## Getting Started
 
-### 1. Настройте бэкенд
+### 1. Backend setup
 
 ```bash
 cd server
 npm install
 cp .env.example .env
-```
-
-В `.env` нужно заполнить:
-
-- `TELEGRAM_BOT_TOKEN`
-- `ICAFE_API_KEY`
-- `ICAFE_CLUB_ID`
-- остальные переменные по необходимости
-
-### 2. Настройте фронтенд
-
-В `config.js` укажите:
-
-- `API_BASE_URL` — адрес бэкенда
-- `CLUB_NAME` — название клуба
-
-### 3. Запустите сервер
-
-```bash
-cd server
+# Fill in TELEGRAM_BOT_TOKEN, ICAFE_API_KEY, ICAFE_CLUB_ID
 npm start
 ```
 
-### 4. Запустите бота
+### 2. Frontend setup
+
+Edit `config.js`:
+```javascript
+API_BASE_URL: "http://localhost:3000/api",  // your backend URL
+CLUB_NAME: "Your Club Name",
+```
+
+Open `index.html` in a browser or serve it.
+
+### 3. Telegram bot
 
 ```bash
 cd bot
 npm install
+# Set BOT_TOKEN and WEBAPP_URL environment variables
 npm start
 ```
 
-### 5. Настройте Telegram-бота
+### 4. Cloudflare deployment
 
-Через `@BotFather`:
+See `DEPLOY.md` for Cloudflare Pages + Workers deployment instructions.
 
-- создайте бота командой `/newbot`
-- установите WebApp через `/setmenubutton`
+## Environment Variables
 
-## Деплой
+| Variable | Description |
+|----------|-------------|
+| `TELEGRAM_BOT_TOKEN` | Get from @BotFather |
+| `ICAFE_API_KEY` | iCafeCloud API key |
+| `ICAFE_CLUB_ID` | iCafeCloud club identifier |
+| `PAYME_MERCHANT_ID` | Payme merchant ID |
+| `CLICK_SERVICE_ID` | Click service ID |
+| `CLICK_MERCHANT_ID` | Click merchant ID |
+| `DEV_MODE` | `true` to skip Telegram validation (dev only) |
 
-Проект также подготовлен для Cloudflare:
+## What I Learned
 
-- `cf-pages` — фронтенд на Cloudflare Pages
-- `cf-worker` — бэкенд на Cloudflare Workers
-- инструкции по деплою описаны в `DEPLOY.md`
-
-## Важно
-
-- секреты и токены не хранятся в коде;
-- для настройки проекта используются `.env` / переменные окружения;
-- реальные данные iCafeCloud подключаются вместо заглушек при деплое.
+- Building a Telegram Mini App with WebApp API integration
+- Server-side Telegram initData validation using HMAC-SHA256
+- Express middleware for auth, CORS, and API proxying
+- Deploying to Cloudflare Workers (serverless backend) and Pages (static frontend)
+- Integrating with third-party payment providers (Payme, Click)
+- Telegraf bot framework for Telegram Bot API
